@@ -4,13 +4,13 @@ services:
   mongodb:
     image: 'mongo'
     ports:
-      - '27017:27017'
+      - '8094:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: rootuser
       MONGO_INITDB_ROOT_PASSWORD: rootpass
     volumes:
-      - data:/data/db mongo
-    container_name: 'letsgodb'
+      - data:/data
+    container_name: 'mongodb'
 
 volumes:
   data: {}
