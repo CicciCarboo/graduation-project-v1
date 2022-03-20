@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 
 @Data
 @Document(collection="Images")
-public class Image {
+public class Image extends BaseEntity{
 
-    @Id
-    private String id;
-    private String name;
+//    @Id
+//    private String id;
+//    private String name;
 
     //Makes image URL unique, which will prevent entering duplicates
     @Indexed(unique = true)
@@ -23,11 +23,11 @@ public class Image {
     private UsageType usageType;
     private LocalDateTime created;
 
-    public Image(String name, String imageUrl, String imageAltText, UsageType usageType, LocalDateTime created) {
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.imageAltText = imageAltText;
-        this.usageType = usageType;
-        this.created = created;
-    }
+//    public Image(String name, String imageUrl, String imageAltText, UsageType usageType, LocalDateTime created) {
+//        this.name = name;
+//        this.imageUrl = imageUrl;
+//        this.imageAltText = imageAltText;
+//        this.usageType = usageType;
+//        this.created = created;
+//    }
 }
