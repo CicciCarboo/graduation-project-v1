@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Document(collection="Images")
 public class Image extends BaseEntity{
 
+//    Id and name are passed down from BaseEntity now.
 //    @Id
 //    private String id;
 //    private String name;
