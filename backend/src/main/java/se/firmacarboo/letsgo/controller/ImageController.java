@@ -14,7 +14,6 @@ import java.util.Optional;
 @RequestMapping("api/v1/images")
 @AllArgsConstructor
 public class ImageController {
-//    ImageService imageService;
     ImageServiceImpl imageServiceImpl;
 
     @GetMapping
@@ -32,6 +31,4 @@ public class ImageController {
     public ResponseEntity<String> registerNewImage(@RequestBody Image image){
         return new ResponseEntity(imageServiceImpl.registerNewImage(image), HttpStatus.OK);
     }
-
-
 }
