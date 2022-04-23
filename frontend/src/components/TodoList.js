@@ -1,16 +1,17 @@
 import React from 'react';
 import TodoItem from "./TodoItem";
+// import brushHair from "./../images/brushHair.png";
+
 
 const TodoList = () => {
 
-    const todoArray = ["Eat breakfast", "Brush teeth", "Get dressed", "Go to school"];
+    const todoArray = [{imageUrl:"/images/eatBreakfast.png",
+        todo: "Eat breakfast"}];
 
 
 
     return (
         <div className="todo-list__container list-group">
-            Hej från Listhållaren.
-            Här under skapas vår lista med morgonuppgifter.
             <ul className="todo-ul p-0">
                 {todoArray.map((todo)=><TodoItem todo={todo}/>)}
             </ul>

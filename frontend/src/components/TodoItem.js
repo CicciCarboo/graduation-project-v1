@@ -13,12 +13,12 @@ const TodoItem = (props) => {
                         </div>
                         <div className="todo__containter">
                             <div className="todo__wrapper">
-                                <p className="todo__paragraph m-0">{props.todo}</p>
+                                <p className="todo__paragraph m-0">{props.todo.todo}</p>
                             </div>
                         </div>
                         <div className="image__containter">
-                            <div className="image__wrapper">BILD på todo
-                                <img alt={props.todo}/>
+                            <div className="image__wrapper">
+                                <img src={props.todo.imageUrl} className="img-thumbnail" alt={props.todo.todo}/>
                             </div>
                         </div>
                 </label>
