@@ -8,10 +8,10 @@ const TodoList = () => {
 
 
     return (
-        <div className="todo-list__container">
+        <div className="todo-list__container list-group">
             Hej från Listhållaren.
             Här under skapas vår lista med morgonuppgifter.
-            <ul>
+            <ul className="todo-ul p-0">
                 {todoArray.map((todo)=><TodoItem todo={todo}/>)}
             </ul>
 
