@@ -1,0 +1,44 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+function useFetch(url) {
+    const [data, setData] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(url)
+            .then((response) => {
+                setData(response.data);
+            })
+            .catch((err) => {
+                setError(err);
+                console.log("Error from useFetch first fetch: ", err)//My own error handling
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, [url]);
+
+    const refetch = () => {
+        setLoading(true);
+        axios
+            .get(url)
+            .then((response) => {
+                setData(response.data);
+            })
+            .catch((err) => {
+                setError(err);
+                console.log("Error from useFetch refetch: ", err)//My own error handling
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+    return { data, loading, error, refetch };
+}
+
+export default useFetch;
