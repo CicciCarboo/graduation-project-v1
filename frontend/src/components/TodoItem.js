@@ -1,4 +1,5 @@
 import React from 'react';
+import "./../styles/TodoItem.css";
 
 const TodoItem = (props) => {
     console.log("From TodoItem.js: props.tasks: ",props.task);
@@ -19,7 +20,7 @@ const TodoItem = (props) => {
                         </div>
                         <div className="image__container">
                             <div className="image__wrapper">
-                                <img src={props.task.imageUrl} className="img-thumbnail" alt={props.task.imageAltText}/>
+                                <img src={props.task.imageUrl} className="task__image img-thumbnail" alt={props.task.imageAltText}/>
                             </div>
                         </div>
                 </label>

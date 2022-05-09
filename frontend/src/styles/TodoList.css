@@ -1,0 +1,10 @@
+.todo-list__container{
+    /*border: solid 2px red;*/
+}
+
+.todo-list__wrapper{
+    max-height: 70vh;
+    max-width: 80vw;
+    overflow: scroll;
+    border: solid 2px #4444;
+}

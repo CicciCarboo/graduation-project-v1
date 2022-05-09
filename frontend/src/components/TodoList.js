@@ -2,6 +2,8 @@ import TodoItem from "./TodoItem";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+import "./../styles/TodoList.css";
+
 
 const TodoList = () => {
 
@@ -9,17 +11,17 @@ const TodoList = () => {
     const [loading, setLoading] = useState(false);
 
     // Fetching data from backend
-    useEffect(()=>{
+    useEffect(() => {
         setLoading(true);
         (async () => {
-            try{
+            try {
                 const result = await axios.get(
                     "http://localhost:8080/api/v1/images"
                 )
                 console.log("result.data from useEffect for fetch: ", result.data);
                 setTasks(result.data);
                 setLoading(false);
-            }catch(error){
+            } catch (error) {
                 console.error(error);
             }
         })()
@@ -30,13 +32,17 @@ const TodoList = () => {
 
 
     return (
-        <div className="todo-list__container list-group">
-            {loading ? <p>Loading....</p> : (
-                <ul className="todo-ul p-0">
-                    {tasks.map((task,index)=><TodoItem key={index} task={task}/>)}
-                </ul>
-            )
-            }
+        <div className="todo-list__container d-flex align-items-center list-group">
+            <div className="todo-list__wrapper rounded">
+                <div className="todo-list list-group">
+                    {loading ? <p>Loading....</p> : (
+                        <ul className="todo-ul p-0">
+                            {tasks.map((task, index) => <TodoItem key={index} task={task}/>)}
+                        </ul>
+                    )
+                    }
+                </div>
+            </div>
         </div>
     );
 };
