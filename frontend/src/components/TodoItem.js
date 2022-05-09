@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TodoItem = (props) => {
-    console.log(props.todo);
+    console.log("From TodoItem.js: props.tasks: ",props.task);
     return (
         <div className="todo-item__container">
             <div className="todo-item__wrapper">

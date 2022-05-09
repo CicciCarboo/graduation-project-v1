@@ -1,11 +1,13 @@
 import TodoItem from "./TodoItem";
 import useFetch from "./useFetch";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 
 const TodoList = () => {
 
     const [tasks, setTasks] = useState([]);
+    const [loadingStatus, setLoadingStatus] = useState(false);
     const todoArray = [{imageUrl:"/images/eatBreakfast.png",
         usageType: "EATBREAKFAST", name: "Pictogram Eat breakfast", imageAltText: "Breakfast on table", message: "Eat breakfast"}];
 
@@ -23,6 +25,34 @@ const TodoList = () => {
     // console.log("data: ", dataInfo[2].name) Does not work during loading, Can only load after data state is set the first time.
 
     // const taskArray = data;
+    let banan = {name: "empty"};
+    // New code from 2022-05-09
+    // TODO fix useEffect, it runs too early
+
+    // Template
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setCount((count) => count + 1);
+    //     }, 1000);
+    // });
+
+    useEffect(()=>{
+
+        (async () => {
+            try{
+                const result = await axios.get(
+                    "http://localhost:8080/api/v1/images"
+                )
+                console.log("result.data from fetch: ", result.data);
+                setTasks(result.data);
+            }catch(error){
+                console.error(error);
+            }
+        })()
+
+    }, [])
+
+    console.log("current state of 'tasks'-array: ", tasks);
 
 
     return (
@@ -35,8 +65,11 @@ const TodoList = () => {
             {/*    </ul>*/}
             {/*)*/}
             {/*}*/}
+            {/*<ul className="todo-ul p-0">*/}
+            {/*    {todoArray.map((task,index)=><TodoItem key={index} task={task}/>)}*/}
+            {/*</ul>*/}
             <ul className="todo-ul p-0">
-                {todoArray.map((task,index)=><TodoItem key={index} task={task}/>)}
+                {tasks.map((task,index)=><TodoItem key={index} task={task}/>)}
             </ul>
 
         </div>
