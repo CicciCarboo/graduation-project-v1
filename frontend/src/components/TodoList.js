@@ -1,11 +1,13 @@
 import TodoItem from "./TodoItem";
 import useFetch from "./useFetch";
+import {useState} from "react";
 
 
 const TodoList = () => {
 
+    const [tasks, setTasks] = useState([]);
     const todoArray = [{imageUrl:"/images/eatBreakfast.png",
-        todo: "Eat breakfast"}];
+        usageType: "EATBREAKFAST", name: "Pictogram Eat breakfast", imageAltText: "Breakfast on table", message: "Eat breakfast"}];
 
     //from GeeksForGeeks
 //    This is the original useFetch hook from GeeksForGeeks, but it doesn't work, because the variable/object "data" can not be recognised in the JSX when called as such: console.log(data).
@@ -20,22 +22,22 @@ const TodoList = () => {
     console.log("data: ", data)
     // console.log("data: ", dataInfo[2].name) Does not work during loading, Can only load after data state is set the first time.
 
-    const taskArray = data;
+    // const taskArray = data;
 
 
     return (
         <div className="todo-list__container list-group">
-            {loading ? <p>Loading....</p> : (
-                <ul>
-                    Ready to display! try useFetch in an useEffect, otherwise problems with loading!
-                    {/*{taskArray.map((task, index)=><TodoItem key={index} task={task}/>)}*/}
+            {/*{loading ? <p>Loading....</p> : (*/}
+            {/*    <ul>*/}
+            {/*        Ready to display! try useFetch in an useEffect, otherwise problems with loading!*/}
+            {/*        /!*{taskArray.map((task, index)=><TodoItem key={index} task={task}/>)}*!/*/}
 
-                </ul>
-            )
-            }
-            {/*<ul className="todo-ul p-0">                */}
-            {/*    {todoArray.map((todo,index)=><TodoItem key={index} todo={todo} index={index}/>)}*/}
-            {/*</ul>*/}
+            {/*    </ul>*/}
+            {/*)*/}
+            {/*}*/}
+            <ul className="todo-ul p-0">
+                {todoArray.map((task,index)=><TodoItem key={index} task={task}/>)}
+            </ul>
 
         </div>
     );
