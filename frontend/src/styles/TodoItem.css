@@ -1,4 +1,17 @@
+.star{
+    width: 3rem;
+}
+
+.todo__paragraph{
+    max-width: 7rem;
+}
+
 .task__image{
-    width: 20rem;
+    width: 5rem;
     height: auto;
+}
+.custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    left: -9999px;
 }

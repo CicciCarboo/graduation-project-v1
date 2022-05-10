@@ -33,11 +33,11 @@ const TodoList = () => {
 
     return (
         <div className="todo-list__container d-flex align-items-center list-group">
-            <div className="todo-list__wrapper rounded">
+            <div className="todo-list__wrapper rounded border border-warning border-3">
                 <div className="todo-list list-group">
                     {loading ? <p>Loading....</p> : (
                         <ul className="todo-ul p-0">
-                            {tasks.map((task, index) => <TodoItem key={index} task={task}/>)}
+                            {tasks.map((task, index) => <TodoItem key={index} index={index} task={task}/>)}
                         </ul>
                     )
                     }
