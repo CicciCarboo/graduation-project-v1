@@ -9,7 +9,7 @@ import se.firmacarboo.letsgo.service.ImageServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("api/v1/images")
 @AllArgsConstructor

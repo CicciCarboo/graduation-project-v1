@@ -9,6 +9,6 @@ import org.springframework.data.annotation.Id;
 public abstract class BaseEntity {
 
     @Id
-    private String id;
+    private String id; //TODO change to ObjectId??? @ID for Spring context, how is it connected to -id: ObjectId(vnjsgnjk...)?
     private String name;
 }
