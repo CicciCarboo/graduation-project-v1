@@ -23,7 +23,6 @@ public class ImageController {
 
     @GetMapping("/{imageId}")
     public Optional<Image> getImage(@PathVariable String imageId){
-        // TODO Returns null now if no Image found.
         return imageServiceImpl.getImageById(imageId);
     }
 

@@ -11,7 +11,6 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ImageServiceImpl implements ImageService{
-//TODO add hibernate true in application.properties to see stacktrace from repository/database
 
     private final ImageRepository imageRepository;
 
@@ -22,13 +21,13 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     public Optional<Image> getImageById(String id) {
-        // TODO Returns null now if no Image found. Create request body and handle if Optional equals null.
+
         return imageRepository.findById(id);
     }
 
     @Override
     public String registerNewImage(Image image) {
-//        TODO on registration check that imageUrl doesn't already exist in db
+
         Optional<Image> existingImage = getImageByImageUrl(image.getImageUrl());
 
         String message;

@@ -1,11 +1,9 @@
 package se.firmacarboo.letsgo.service;
 
 import se.firmacarboo.letsgo.entity.Image;
-import se.firmacarboo.letsgo.repository.ImageRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface ImageService {
 
