@@ -170,5 +170,73 @@ class ImageServiceImplTest {
 //        This should fail? The database should be populated?
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
     }
+
+    @Test
+    void testCalculation(){
+        // A little warm up
+
+        // given
+        int firstValue = 10;
+        int secondValue = 20;
+
+        // when
+        int result = Math.max(firstValue, secondValue);
+
+        // then
+        assertEquals(secondValue, result);
+    }
+
+    @Test
+    void shouldUpdateImage(){
+
+        // given
+        Image image = new Image();
+        image.setId("42");
+        image.setImageAltText("Image Alt Text");
+        image.setImageUrl("https://example.org/example");
+        image.setName("Name");
+        image.setUsageType(UsageType.BRUSHTEETH);
+
+        // I want the uppdate to succeed
+        when(this.imageRepository.save((Image) any())).thenReturn(image);
+        when(this.imageRepository.findImageByImageUrl((String) any())).thenReturn(Optional.empty());
+
+        assertEquals("Image has been successfully inserted.", this.imageServiceImpl.registerNewImage(image1));
+        verify(this.imageRepository).save((Image) any());
+        verify(this.imageRepository).findImageByImageUrl((String) any());
+
+//        This should fail? The database should be populated?
+        assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
+
+        /**Todo on successful update
+         * get Image to update
+         * get id from image
+         * findImageById
+         * compare fields to find which one was updated
+         * if imageUrl was updated, compare new imageUrl with existing ones in database
+         * if Optional of findImageByUrl is empty, proceed
+         * call imageRepository.save(image)
+         * */
+
+        /**Todo on denied update due to URL
+         * get Image to update
+         * get id from image
+         * findImageById
+         * compare fields to find which one was updated
+         * if imageUrl was updated, compare new imageUrl with existing ones in database
+         * if Optional of findImageByUrl is occupied, abort
+         * verify that imageRepository.save() was never called.
+         * */
+
+        /**Todo on denied update due to id
+         * get Image to update
+         * get id from image
+         * if null = findImageById, return error message
+         * assert that error message was thrown
+         * verify that imageRepository.save() was never called.
+         * */
+
+
+    }
 }
 
