@@ -67,7 +67,8 @@ class ImageServiceImplTest {
 
         // then
 
-//        this will return that there already exists an image (image1) with that imageUrl.
+        // This is a mock?
+        // this will return that there already exists an image (image1) with that imageUrl.
         assertEquals(expectedImageRegistrationSuccessMessage, this.imageServiceImpl.registerNewImage(image2));
 
         // Mocks. They are only concerned with what method is called, and when.
@@ -187,23 +188,51 @@ class ImageServiceImplTest {
     }
 
     @Test
-    void shouldUpdateImage(){
+    void shouldUpdateImageSuccessfully(){
+        /*Log:
+        20220522 16:27h ImageServiceImpl.updateImage() empty. Test should fail.
+        Result:
+        Expected :Image has been successfully updated.
+        Actual   :null
 
+        20220522 16:27h ImageServiceImpl.updateImage() empty.
+        Changed return type of method to boolean. Test should fail.
+        Result
+        Expected :true
+        Actual   :false
+
+        */
+
+        // updateOne() returns a document (=object) holding: matchedCount: 1 (documents matching the query), modifiedCount: 1(documents modified), acknoledged: false (write concern)
         // given
         Image image = new Image();
+        image.setId("42");
+        image.setImageAltText("Image Alt Text");
+        image.setImageUrl("https://example.org/NEWurl");
+        image.setName("Name");
+        image.setUsageType(UsageType.BRUSHTEETH);
+
+        Image imageInDB = new Image();
         image.setId("42");
         image.setImageAltText("Image Alt Text");
         image.setImageUrl("https://example.org/example");
         image.setName("Name");
         image.setUsageType(UsageType.BRUSHTEETH);
 
-        // I want the uppdate to succeed
-        when(this.imageRepository.save((Image) any())).thenReturn(image);
-        when(this.imageRepository.findImageByImageUrl((String) any())).thenReturn(Optional.empty());
+        // This update shall succeed
+//    not in use    when(this.imageRepository.save((Image) any())).thenReturn(image); // returns image now, in reality returns object with write results
+        when(this.imageRepository.findById((String) any())).thenReturn(Optional.of(imageInDB));
+        when(this.imageRepository.existsByImageUrl((String) any())).thenReturn(false);
 
-        assertEquals("Image has been successfully inserted.", this.imageServiceImpl.registerNewImage(image1));
-        verify(this.imageRepository).save((Image) any());
-        verify(this.imageRepository).findImageByImageUrl((String) any());
+        // when
+        assertEquals("Image successfully updated.", imageServiceImpl.updateImage(image));
+//        imageServiceImpl.updateImage(image);
+
+        // then
+        verify(this.imageRepository).findById((String) any());
+        verify(this.imageRepository).existsByImageUrl((String) any());
+//     not in use   verify(this.imageRepository).save((Image) any());
+
 
 //        This should fail? The database should be populated?
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());

@@ -9,10 +9,11 @@ import java.util.UUID;
 
 public interface ImageService {
 
+    Boolean existsByImageUrl(String imageUrl);
     List<Image> getAllImages();
     Optional<Image> getImageById(String id);
     Optional<Image> getImageByImageUrl(String imageUrl);
     String registerNewImage(Image image);
-    Image updateImage(String id);
+    String updateImage(Image image);
     void deleteImage(String id);
 }

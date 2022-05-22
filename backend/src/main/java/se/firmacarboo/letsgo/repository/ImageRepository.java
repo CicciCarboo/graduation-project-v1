@@ -8,5 +8,7 @@ import java.util.Optional;
 public interface ImageRepository  extends MongoRepository<Image, String> {
 
     //TODO you should disable the use of arbitrary JavaScript by setting javascriptEnabled:false in the config file. / https://www.infoq.com/articles/Starting-With-MongoDB/
+    Boolean existsByImageUrl(String imageUrl);
     Optional<Image> findImageByImageUrl(String imageUrl);
+
 }
