@@ -15,7 +15,6 @@ import java.util.Optional;
 @Slf4j
 @Service
 @AllArgsConstructor
-@Transactional
 public class ImageServiceImpl implements ImageService {
 //TODO add hibernate true in application.properties to see stacktrace from repository/database
 
@@ -54,11 +53,12 @@ public class ImageServiceImpl implements ImageService {
 
     }
 
+    @Transactional
     @Override
     public String updateImage(Image image) {
         log.info("Running updateImage.");
         // .save() will return image the saved object
-        // when using findById() in a @Transactional method, there is no need for save().
+        // when using findById() in a @Transactional method, there is supposed no need for save(). I do not get it to work yet.
 
         String result;
         try {
@@ -77,22 +77,23 @@ public class ImageServiceImpl implements ImageService {
                         throw new InstanceAlreadyExistsException();
                     }
 
-                    imageFromDatabase.get().setImageUrl(image.getImageUrl());
+//                    imageFromDatabase.get().setImageUrl(image.getImageUrl());
                 }
 
-                // mapping new values to existing image
-                if(!image.getName().equals(imageFromDatabase.get().getName()))
-                    imageFromDatabase.get().setName(image.getName());
+//                // mapping new values to existing image
+//                if(!image.getName().equals(imageFromDatabase.get().getName()))
+//                    imageFromDatabase.get().setName(image.getName());
+//
+//                if(!image.getImageAltText().equals(imageFromDatabase.get().getImageAltText()))
+//                    imageFromDatabase.get().setImageAltText(image.getImageAltText());
+//
+////              Todo:  if(!image.getMessage().equals(imageFromDatabase.get().getMessage()))
+////                    imageFromDatabase.get().setMessage(image.getMessage());
+//
+//                if(!image.getUsageType().equals(imageFromDatabase.get().getUsageType()))
+//                    imageFromDatabase.get().setUsageType(image.getUsageType());
 
-                if(!image.getImageAltText().equals(imageFromDatabase.get().getImageAltText()))
-                    imageFromDatabase.get().setImageAltText(image.getImageAltText());
-
-//              Todo:  if(!image.getMessage().equals(imageFromDatabase.get().getMessage()))
-//                    imageFromDatabase.get().setMessage(image.getMessage());
-
-                if(!image.getUsageType().equals(imageFromDatabase.get().getUsageType()))
-                    imageFromDatabase.get().setUsageType(image.getUsageType());
-
+                imageRepository.save(image);
                 result = "Image successfully updated.";
             } else {
                 throw new NoSuchElementException();
@@ -100,8 +101,8 @@ public class ImageServiceImpl implements ImageService {
 
 
         } catch (Exception e) {
-            result = "" + e.getMessage();
-            log.error("From updateImage: an error occurred: '{}'", "Message: " + e.getMessage());
+            result = "" + e;
+            log.error("From updateImage: an error occurred: '{}'", "Message: " + e);
         }
 
         return result;
