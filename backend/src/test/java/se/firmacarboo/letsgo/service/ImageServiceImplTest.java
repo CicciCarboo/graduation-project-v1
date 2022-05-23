@@ -2,9 +2,7 @@ package se.firmacarboo.letsgo.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -27,19 +25,15 @@ class ImageServiceImplTest {
     private ImageServiceImpl imageServiceImpl;
 
     @Test
-    void testRegisterNewImage() {
+    void testRegisterNewImage_imageUrlOccupied_shouldProduceMessageOfFailure() {
 
         // given
-
-
         Image image = new Image();
         image.setId("42");
         image.setImageAltText("Image Alt Text");
         image.setImageUrl("https://example.org/example");
         image.setName("Name");
         image.setUsageType(UsageType.BRUSHTEETH);
-        String expectedImageRegistrationSuccessMessage = "Image has been successfully inserted.";
-
 
         Image image1 = new Image();
         image1.setId("42");
@@ -47,15 +41,18 @@ class ImageServiceImplTest {
         image1.setImageUrl("https://example.org/example");
         image1.setName("Name");
         image1.setUsageType(UsageType.BRUSHTEETH);
+
         Optional<Image> ofResult = Optional.of(image1);
+        String message = "There is already an image with imageUrl: " + image1.getImageUrl();
 
         // a stub?
         // when the mocked repository's insert method is called, then return image
         when(this.imageRepository.insert((Image) any())).thenReturn(image);
 
         // a stub?
-        // when the mocked repository's findImageByImageUrl(imageUrl) method is called, then return the Optional value of image1
-        when(this.imageRepository.findImageByImageUrl((String) any())).thenReturn(ofResult);
+        // when the mocked repository's findImageByImageUrl(imageUrl) method is called,
+        // then return the Optional value of image1
+        when(this.imageRepository.findImageByImageUrl(any())).thenReturn(ofResult);
 
         // a dummy?
         Image image2 = new Image();
@@ -68,20 +65,20 @@ class ImageServiceImplTest {
         // then
 
         // This is a mock?
-        // this will return that there already exists an image (image1) with that imageUrl.
-        assertEquals(expectedImageRegistrationSuccessMessage, this.imageServiceImpl.registerNewImage(image2));
+        assertEquals(message, this.imageServiceImpl.registerNewImage(image2));
 
         // Mocks. They are only concerned with what method is called, and when.
 //        these methods check that the mocked repository is called by the given methods.
-        verify(this.imageRepository).insert((Image) any());
-        verify(this.imageRepository).findImageByImageUrl((String) any());
+        verify(this.imageRepository, times(0)).insert((Image) any());
+        verify(this.imageRepository, times(1)).findImageByImageUrl(any());
 
-//        this method asserts that there was no image registered, the database is still empty. (will return false, because it's calling the true database right now???)
+//        Finally, this method asserts that imageServiceImpl truly only interacted
+//        with the mocked imageRepository = no connection to database.
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
     }
 
     @Test
-    void testRegisterNewImage2() {
+    void testRegisterNewImage_ValidImageUrl_shouldPass() {
 
         // given
         Image image = new Image();
@@ -93,7 +90,7 @@ class ImageServiceImplTest {
 
         //stubs
         when(this.imageRepository.insert((Image) any())).thenReturn(image);
-        when(this.imageRepository.findImageByImageUrl((String) any())).thenReturn(Optional.empty());
+        when(this.imageRepository.findImageByImageUrl(any())).thenReturn(Optional.empty());
 
         // dummy?
         Image image1 = new Image();
@@ -107,10 +104,8 @@ class ImageServiceImplTest {
 
         //mocks
         verify(this.imageRepository).insert((Image) any());
-        verify(this.imageRepository).findImageByImageUrl((String) any());
+        verify(this.imageRepository).findImageByImageUrl(any());
 
-//        this should fail. The insert should be successfull, since the optional returned in findImageByUrl was empty.
-//        OR, are we asserting that the actual ImageRepository never was called, and thus the database stays empty?
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
     }
 
@@ -131,7 +126,7 @@ class ImageServiceImplTest {
         image1.setUsageType(UsageType.BRUSHTEETH);
         Optional<Image> ofResult = Optional.of(image1);
         when(this.imageRepository.insert((Image) any())).thenReturn(image);
-        when(this.imageRepository.findImageByImageUrl((String) any())).thenReturn(ofResult);
+        when(this.imageRepository.findImageByImageUrl(any())).thenReturn(ofResult);
 
         Image image2 = new Image();
         image2.setId("42");
@@ -141,7 +136,7 @@ class ImageServiceImplTest {
         image2.setUsageType(UsageType.BRUSHTEETH);
         assertEquals("There is already an image with imageUrl: https://example.org/example",
                 this.imageServiceImpl.registerNewImage(image2));
-        verify(this.imageRepository).findImageByImageUrl((String) any());
+        verify(this.imageRepository).findImageByImageUrl(any());
 
 //        This method should succeed, because no image could be registered.???
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
@@ -156,7 +151,7 @@ class ImageServiceImplTest {
         image.setName("Name");
         image.setUsageType(UsageType.BRUSHTEETH);
         when(this.imageRepository.insert((Image) any())).thenReturn(image);
-        when(this.imageRepository.findImageByImageUrl((String) any())).thenReturn(Optional.empty());
+        when(this.imageRepository.findImageByImageUrl(any())).thenReturn(Optional.empty());
 
         Image image1 = new Image();
         image1.setId("42");
@@ -166,44 +161,18 @@ class ImageServiceImplTest {
         image1.setUsageType(UsageType.BRUSHTEETH);
         assertEquals("Image has been successfully inserted.", this.imageServiceImpl.registerNewImage(image1));
         verify(this.imageRepository).insert((Image) any());
-        verify(this.imageRepository).findImageByImageUrl((String) any());
+        verify(this.imageRepository).findImageByImageUrl(any());
 
 //        This should fail? The database should be populated?
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
     }
 
     @Test
-    void testCalculation(){
-        // A little warm up
-
-        // given
-        int firstValue = 10;
-        int secondValue = 20;
-
-        // when
-        int result = Math.max(firstValue, secondValue);
-
-        // then
-        assertEquals(secondValue, result);
-    }
-
-    @Test
     void shouldUpdateImageSuccessfully(){
-        /*Log:
-        20220522 16:27h ImageServiceImpl.updateImage() empty. Test should fail.
-        Result:
-        Expected :Image has been successfully updated.
-        Actual   :null
+        // TDD
+        // updateOne() returns a document holding:
+        // matchedCount: 1 (documents matching the query), modifiedCount: 1(documents modified), acknowledged: false (write concern)
 
-        20220522 16:27h ImageServiceImpl.updateImage() empty.
-        Changed return type of method to boolean. Test should fail.
-        Result
-        Expected :true
-        Actual   :false
-
-        */
-
-        // updateOne() returns a document (=object) holding: matchedCount: 1 (documents matching the query), modifiedCount: 1(documents modified), acknoledged: false (write concern)
         // given
         Image image = new Image();
         image.setId("42");
@@ -220,24 +189,19 @@ class ImageServiceImplTest {
         image.setUsageType(UsageType.BRUSHTEETH);
 
         // This update shall succeed
-//    not in use    when(this.imageRepository.save((Image) any())).thenReturn(image); // returns image now, in reality returns object with write results
-        when(this.imageRepository.findById((String) any())).thenReturn(Optional.of(imageInDB));
-        when(this.imageRepository.existsByImageUrl((String) any())).thenReturn(false);
+        when(this.imageRepository.findById(any())).thenReturn(Optional.of(imageInDB));
+        when(this.imageRepository.existsByImageUrl(any())).thenReturn(false);
 
         // when
         assertEquals("Image successfully updated.", imageServiceImpl.updateImage(image));
-//        imageServiceImpl.updateImage(image);
 
         // then
-        verify(this.imageRepository).findById((String) any());
-        verify(this.imageRepository).existsByImageUrl((String) any());
-//     not in use   verify(this.imageRepository).save((Image) any());
+        verify(this.imageRepository).findById(any());
+        verify(this.imageRepository).existsByImageUrl(any());
 
-
-//        This should fail? The database should be populated?
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
 
-        /**Todo on successful update
+        /*Todo on successful update
          * get Image to update
          * get id from image
          * findImageById
@@ -247,7 +211,7 @@ class ImageServiceImplTest {
          * call imageRepository.save(image)
          * */
 
-        /**Todo on denied update due to URL
+        /*Todo on denied update due to URL
          * get Image to update
          * get id from image
          * findImageById
@@ -257,7 +221,7 @@ class ImageServiceImplTest {
          * verify that imageRepository.save() was never called.
          * */
 
-        /**Todo on denied update due to id
+        /*Todo on denied update due to id
          * get Image to update
          * get id from image
          * if null = findImageById, return error message
