@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface ImageRepository  extends MongoRepository<Image, String> {
 
+    Boolean existsByImageUrl(String imageUrl);
     Optional<Image> findImageByImageUrl(String imageUrl);
 }
