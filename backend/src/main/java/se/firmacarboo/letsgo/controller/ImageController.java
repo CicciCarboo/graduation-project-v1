@@ -55,4 +55,15 @@ ResponseEntity<String> age(@RequestParam("yearOfBirth") int yearOfBirth) {
         }
         return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(result);
     }
+
+    @DeleteMapping("/delete-image/{id}")
+    public ResponseEntity<String> deleteImage(@PathVariable String id){
+        Boolean deleteSuccessful = imageServiceImpl.deleteImageById(id);
+
+        if(!deleteSuccessful){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
 }

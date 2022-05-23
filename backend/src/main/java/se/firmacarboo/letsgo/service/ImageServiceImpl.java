@@ -109,8 +109,22 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void deleteImage(String id) {
+    public Boolean deleteImageById(String id) {
+        log.info("Running deleteImageById().");
 
+        try {
+            Optional<Image> existingImage = imageRepository.findById(id);
+
+            if (existingImage.isPresent()) {
+                imageRepository.deleteById(id);
+                log.info("From deleteImageById(). Image with Id: {} successfully deleted.", id);
+                return true;
+            }else throw new NoSuchElementException();
+
+        } catch (NoSuchElementException e) {
+            log.error("From deleteImageById(). No document exists by given id. Error: {}", ""+e);
+            return false;
+        }
     }
 
     //This method is only intended for service use. Not to be used for API access.

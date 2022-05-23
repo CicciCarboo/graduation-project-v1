@@ -138,7 +138,6 @@ class ImageServiceImplTest {
                 this.imageServiceImpl.registerNewImage(image2));
         verify(this.imageRepository).findImageByImageUrl(any());
 
-//        This method should succeed, because no image could be registered.???
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
     }
 
@@ -163,12 +162,11 @@ class ImageServiceImplTest {
         verify(this.imageRepository).insert((Image) any());
         verify(this.imageRepository).findImageByImageUrl(any());
 
-//        This should fail? The database should be populated?
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
     }
 
     @Test
-    void shouldUpdateImageSuccessfully(){
+    void shouldUpdateImageSuccessfully() {
         // TDD
         // updateOne() returns a document holding:
         // matchedCount: 1 (documents matching the query), modifiedCount: 1(documents modified), acknowledged: false (write concern)
@@ -182,11 +180,11 @@ class ImageServiceImplTest {
         image.setUsageType(UsageType.BRUSHTEETH);
 
         Image imageInDB = new Image();
-        image.setId("42");
-        image.setImageAltText("Image Alt Text");
-        image.setImageUrl("https://example.org/example");
-        image.setName("Name");
-        image.setUsageType(UsageType.BRUSHTEETH);
+        imageInDB.setId("42");
+        imageInDB.setImageAltText("Image Alt Text");
+        imageInDB.setImageUrl("https://example.org/example");
+        imageInDB.setName("Name");
+        imageInDB.setUsageType(UsageType.BRUSHTEETH);
 
         // This update shall succeed
         when(this.imageRepository.findById(any())).thenReturn(Optional.of(imageInDB));
@@ -202,18 +200,16 @@ class ImageServiceImplTest {
         assertTrue(this.imageServiceImpl.getAllImages().isEmpty());
 
         /*Todo on successful update
-         * get Image to update
-         * get id from image
-         * findImageById
+         * get id from provided image CHECK!
+         * findImageById CHECK!
          * compare fields to find which one was updated
-         * if imageUrl was updated, compare new imageUrl with existing ones in database
-         * if Optional of findImageByUrl is empty, proceed
-         * call imageRepository.save(image)
+         * if imageUrl was updated, compare new imageUrl with existing ones in database CHECK!
+         * if Optional of findImageByUrl is empty, proceed CHECK!
+         * call imageRepository.save(image) CHECK!
          * */
 
         /*Todo on denied update due to URL
-         * get Image to update
-         * get id from image
+         * get id from provided image
          * findImageById
          * compare fields to find which one was updated
          * if imageUrl was updated, compare new imageUrl with existing ones in database
@@ -221,15 +217,54 @@ class ImageServiceImplTest {
          * verify that imageRepository.save() was never called.
          * */
 
-        /*Todo on denied update due to id
-         * get Image to update
-         * get id from image
+        /*Todo on denied update due to invalid id
+         * get id from provided image
+         * findImageById
          * if null = findImageById, return error message
          * assert that error message was thrown
          * verify that imageRepository.save() was never called.
          * */
+    }
 
+        /*
+            TODO Delete method tests
+             * Test for happy path CHECK!
+             * Test for failure
+             */
 
+    @Test
+    public void testDeleteImage_shouldPass() {
+        // Testing Happy path.
+
+        // given
+        Image imageInDB = new Image();
+        imageInDB.setId("42");
+        imageInDB.setImageAltText("Image Alt Text");
+        imageInDB.setImageUrl("https://example.org/example");
+        imageInDB.setName("Name");
+        imageInDB.setUsageType(UsageType.BRUSHTEETH);
+
+        // This update shall succeed
+        when(this.imageRepository.findById(any())).thenReturn(Optional.of(imageInDB));
+
+        // when
+        imageServiceImpl.deleteImageById(any());
+
+        // then
+        verify(this.imageRepository).findById(any());
+        verify(this.imageRepository).deleteById(any());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

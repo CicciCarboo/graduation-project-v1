@@ -15,5 +15,5 @@ public interface ImageService {
     Optional<Image> getImageByImageUrl(String imageUrl);
     String registerNewImage(Image image);
     String updateImage(Image image);
-    void deleteImage(String id);
+    Boolean deleteImageById(String id);
 }
