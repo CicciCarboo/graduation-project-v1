@@ -56,8 +56,6 @@ public class ImageServiceImpl implements ImageService{
     @Override
     public String updateImage(Image image) {
         log.info("Running updateImage.");
-        // .save() will return image the saved object
-        // when using findById() in a @Transactional method, there is supposed no need for save(). I do not get it to work yet.
 
         String result;
         try {
@@ -75,29 +73,13 @@ public class ImageServiceImpl implements ImageService{
                     if (imageRepository.existsByImageUrl(image.getImageUrl())) {
                         throw new InstanceAlreadyExistsException();
                     }
-
-//                    imageFromDatabase.get().setImageUrl(image.getImageUrl());
                 }
-
-//                // mapping new values to existing image
-//                if(!image.getName().equals(imageFromDatabase.get().getName()))
-//                    imageFromDatabase.get().setName(image.getName());
-//
-//                if(!image.getImageAltText().equals(imageFromDatabase.get().getImageAltText()))
-//                    imageFromDatabase.get().setImageAltText(image.getImageAltText());
-//
-////              Todo:  if(!image.getMessage().equals(imageFromDatabase.get().getMessage()))
-////                    imageFromDatabase.get().setMessage(image.getMessage());
-//
-//                if(!image.getUsageType().equals(imageFromDatabase.get().getUsageType()))
-//                    imageFromDatabase.get().setUsageType(image.getUsageType());
 
                 imageRepository.save(image);
                 result = "Image successfully updated.";
             } else {
                 throw new NoSuchElementException();
             }
-
 
         } catch (Exception e) {
             result = "" + e;
@@ -126,7 +108,7 @@ public class ImageServiceImpl implements ImageService{
         }
     }
 
-    //This method is only intended for service use. Not to be used for API access.
+    //This method is only intended for internal service use. Not to be used for handling API calls.
     @Override
     public Optional<Image> getImageByImageUrl(String imageUrl) {
         return imageRepository.findImageByImageUrl(imageUrl);
