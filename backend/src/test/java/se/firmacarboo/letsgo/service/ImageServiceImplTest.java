@@ -244,7 +244,6 @@ class ImageServiceImplTest {
         imageInDB.setName("Name");
         imageInDB.setUsageType(UsageType.BRUSHTEETH);
 
-        // This update shall succeed
         when(this.imageRepository.findById(any())).thenReturn(Optional.of(imageInDB));
 
         // when
