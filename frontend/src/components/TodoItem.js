@@ -7,7 +7,7 @@ const TodoItem = (props) => {
     return (
         <div className="todo-item__container" >
             <div className="todo-item__wrapper">
-                <CustomCheckbox id={`checkbox_${props.index}`} task={props.task}/>
+                <CustomCheckbox id={`checkbox_${props.index}`} task={props.task} resetCheckedState={props.resetCheckedState}/>
             </div>
 
         </div>

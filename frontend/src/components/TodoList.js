@@ -5,7 +5,7 @@ import axios from "axios";
 import "./../styles/TodoList.css";
 
 
-const TodoList = () => {
+const TodoList = (resetCheckedState) => {
 
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ const TodoList = () => {
                 <div className="todo-list list-group">
                     {loading ? <p>Loading....</p> : (
                         <ul className="todo-ul p-0">
-                            {tasks.map((task, index) => <TodoItem key={index} index={index} task={task}/>)}
+                            {tasks.map((task, index) => <TodoItem key={index} index={index} task={task} resetCheckedState={resetCheckedState}/>)}
                         </ul>
                     )
                     }
