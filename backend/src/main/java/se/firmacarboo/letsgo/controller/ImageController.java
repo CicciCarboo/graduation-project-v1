@@ -31,20 +31,6 @@ public class ImageController {
         return new ResponseEntity(imageServiceImpl.registerNewImage(image), HttpStatus.OK);
     }
 
-
-    /*
-    * Template
-    * @GetMapping("/age")
-ResponseEntity<String> age(@RequestParam("yearOfBirth") int yearOfBirth) {
-    if (isInFuture(yearOfBirth)) {
-        return ResponseEntity.badRequest()
-            .body("Year of birth cannot be in the future");
-    }
-
-    return ResponseEntity.status(HttpStatus.OK)
-        .body("Your age is " + calculateAge(yearOfBirth));
-}*/
-
     @PutMapping("/update-image")
     public ResponseEntity<String> updateImage(@RequestBody Image image){
         String result = imageServiceImpl.updateImage(image);
