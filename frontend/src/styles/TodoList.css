@@ -3,7 +3,7 @@
 }
 
 .todo-list__wrapper{
-    height: 70vh;
+    height: 60vh;
     /*width: 80vw;*/
     overflow: scroll;
     /*border: solid 3px #000;*/

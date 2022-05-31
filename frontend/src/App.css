@@ -5,6 +5,7 @@
   border: 0.5rem solid #000;
   border-radius: 8px;
   overflow: scroll;
+  padding: 0;
 }
 
 .source_div{
