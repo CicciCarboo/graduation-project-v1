@@ -31,7 +31,7 @@ const TodoList = ({resetIsChecked, setResetIsChecked}) => {
     // console.log("current state of 'tasks'-array: ", tasks);
 
     return (
-        <div className="todo-list__container d-flex align-items-center list-group">
+        <div className="todo-list__container d-flex align-items-center list-group pt-2">
             <div className="todo-list__wrapper rounded border border-warning border-3">
                 <div className="todo-list list-group">
                     {loading ? <p>Loading....</p> : (

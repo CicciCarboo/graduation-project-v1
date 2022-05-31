@@ -14,6 +14,10 @@
 
 .footer{
   color: #ffff;
+  bottom: -2px;
+  height: 8vh;
+  position: relative;
+  width: 100%;
 }
 
 

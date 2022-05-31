@@ -24,11 +24,11 @@ const MyDay = () => {
                 </div>
             </div>
             <TodoList resetIsChecked={resetIsClicked} setResetIsChecked={setResetIsClicked}/>
-            <div className="reset-button_wrapper d-flex flex-start p-4">
-                <button type="button" className="btn btn-success" onClick={handleResetClick}>Återställ listan
+            <div className="reset-button_wrapper d-flex justify-content-end p-4">
+                <button className="btn btn-success me-3" type="button"  onClick={handleResetClick}>Återställ listan
                 </button>
             </div>
-            <div className="source_div pt-2">
+            <div className="source_div pb-5">
                 <p className="m-0">Bildkällor: </p>
                 <p className="m-0">Papunets bildbank, <a href="https://papunet.net/">www.papunet.net</a>, </p>
                 <p className="m-0"> Sergio Palao / ARASAAC, Källa:
