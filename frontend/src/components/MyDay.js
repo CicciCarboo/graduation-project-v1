@@ -28,6 +28,15 @@ const MyDay = () => {
                 <button type="button" className="btn btn-success" onClick={handleResetClick}>Återställ listan
                 </button>
             </div>
+            <div className="source_div pt-2">
+                <p className="m-0">Bildkällor: </p>
+                <p className="m-0">Papunets bildbank, <a href="https://papunet.net/">www.papunet.net</a>, </p>
+                <p className="m-0"> Sergio Palao / ARASAAC, Källa:
+                    <a href="http://www.catedu.es/arasaac/">ARASAAC</a>, </p>
+                <p className="m-0"> Sclera, Källa: <a
+                    href="http://sclera.be/">Sclera</a>
+                    , hämtade ca 2016</p>
+            </div>
         </div>
     );
 };
