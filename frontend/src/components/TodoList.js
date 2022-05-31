@@ -5,7 +5,7 @@ import axios from "axios";
 import "./../styles/TodoList.css";
 
 
-const TodoList = (resetCheckedState) => {
+const TodoList = ({resetIsChecked, setResetIsChecked}) => {
 
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const TodoList = (resetCheckedState) => {
                 const result = await axios.get(
                     "http://localhost:8080/api/v1/images"
                 )
-                console.log("result.data from useEffect for fetch: ", result.data);
+                // console.log("result.data from useEffect for fetch: ", result.data);
                 setTasks(result.data);
                 setLoading(false);
             } catch (error) {
@@ -28,8 +28,7 @@ const TodoList = (resetCheckedState) => {
 
     }, [])
 
-    console.log("current state of 'tasks'-array: ", tasks);
-
+    // console.log("current state of 'tasks'-array: ", tasks);
 
     return (
         <div className="todo-list__container d-flex align-items-center list-group">
@@ -37,7 +36,7 @@ const TodoList = (resetCheckedState) => {
                 <div className="todo-list list-group">
                     {loading ? <p>Loading....</p> : (
                         <ul className="todo-ul p-0">
-                            {tasks.map((task, index) => <TodoItem key={index} index={index} task={task} resetCheckedState={resetCheckedState}/>)}
+                            {tasks.map((task, index) => <TodoItem key={index} index={index} task={task} resetIsChecked={resetIsChecked} setResetIsChecked={setResetIsChecked}/>)}
                         </ul>
                     )
                     }

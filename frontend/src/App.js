@@ -7,7 +7,6 @@ function App() {
 
     // state to change checked
     const [resetIsChecked, setResetIsChecked] = useState(false);
-    // when new ListItem is checked, set resetBox to false
 
     const handleResetChange = () => {
 
@@ -16,7 +15,7 @@ function App() {
         }else {
             setResetIsChecked(true);
         }
-        console.log("Reset-checkbox status: ", resetIsChecked);
+        // console.log("Reset-checkbox status: ", resetIsChecked);
     }
 
     return (
@@ -29,7 +28,7 @@ function App() {
                 <input id="reset-todo-items_checkbox" type="checkbox" checked={resetIsChecked} onChange={handleResetChange}/>
                 <label className="d-flex justify-content-around" htmlFor="reset-todo-items_checkbox">Återställ listan</label>
             </div>
-            <TodoList resetCheckedState={resetIsChecked}/>
+            <TodoList resetIsChecked={resetIsChecked} setResetIsChecked={setResetIsChecked}/>
             <div className="source_div pt-4">
                 <p className="m-0">Bildkällor: </p>
                 <p className="m-0">Papunets bildbank, <a href="https://papunet.net/">www.papunet.net</a>, </p>

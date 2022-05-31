@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-const CustomCheckbox = ({id, task, resetCheckedState}) => { // id=`checkbox_${index}`
-    // let starColor = "warning";
-    // let starColor = "danger";
+const CustomCheckbox = ({id, task, resetIsChecked, setResetIsChecked}) => { // id=`checkbox_${index}`
+
     const [starColor, setStarColor] = useState("secondary");
     const [backgroundColor, setBackgroundColor] = useState("warning");
     const [percentage, setPercentage] = useState("10");
@@ -15,37 +14,33 @@ const CustomCheckbox = ({id, task, resetCheckedState}) => { // id=`checkbox_${in
         setBorderColor("warning");
         setPercentage("10");
         setIsChecked(false);
-        console.log("Un-clicked star.");
+        // console.log("Un-clicked star.");
     }
 
     const handleChange = () => {
 
         if (isChecked) {
-            setStarColor("secondary");
-            setBackgroundColor("warning");
-            setBorderColor("warning");
-            setPercentage("10");
-            setIsChecked(false);
-            console.log("Un-clicked star.");
+            resetStar()
         } else {
             setStarColor("warning");
             setBackgroundColor("success");
             setBorderColor("success");
             setPercentage("50");
             setIsChecked(true);
-            console.log("Star has been clicked!");
+            // console.log("Star has been clicked!");
         }
     }
 
     useEffect(() => {
-        console.log("From resetCheckedStates useEffect");
+        // console.log("From resetCheckedStates useEffect");
 
-        // if resetCheckedState = true, run resetStar
+        // this part only runs if star is checked, therefore no eternal loop.
         if(isChecked){
             resetStar();
-            console.log("just ran 'resetStar()' for %s, should be blank now", task.name)
+            setResetIsChecked(false);
+            // console.log("just ran 'resetStar()' for %s, should be blank now", task.name)
         }
-    }, [resetCheckedState])
+    }, [resetIsChecked])
 
     return (
         <div
