@@ -35,7 +35,7 @@ const MyDay = () => {
                     <a href="http://www.catedu.es/arasaac/">ARASAAC</a>, </p>
                 <p className="m-0"> Sclera, Källa: <a
                     href="http://sclera.be/">Sclera</a>
-                    , hämtade ca 2016</p>
+                    , hämtade 2016</p>
             </div>
         </div>
     );
