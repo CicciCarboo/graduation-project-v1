@@ -1,2 +1,2 @@
 # graduation-project-v1
-This is my graduation project. For this project I will use the techniques I have learned during the Java Developer education.
+This is my graduation project. For this project I have used the techniques I have learned during the Java Developer education: Java11, Spring, Spring Boot, Junit, Docker, MongoDB, React.js, Bootstrap CSS framework. This web application has been planned and developed by the help of agile methodology, using Trello-board (Kanban), test driven development (TDD), and the design tool Figma. 
